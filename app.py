@@ -1,100 +1,30 @@
 import os
 import re
+import json
+import urllib.request
+from typing import Optional
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from dotenv import load_dotenv
 
-import gradio as gr
-from langchain_community.document_loaders import TextLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
-from langchain_google_genai import ChatGoogleGenerativeAI
-
-# 1. Environment & API Key
 load_dotenv()
-google_api_key = os.getenv("GOOGLE_API_KEY", "").strip()
 
-# 2. Vector DB & Embeddings Setup
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+app = FastAPI(title="MediAssist Clinical Triage AI")
 
-# Local medical FAQ sample fallback knowledge
-sample_faq_path = "medical_faq.txt"
-if not os.path.exists(sample_faq_path):
-    with open(sample_faq_path, "w", encoding="utf-8") as f:
-        f.write(
-            "Q: What are the primary symptoms of Covid-19?\n"
-            "A: Primary symptoms include fever or chills, dry cough, shortness of breath, fatigue, and body aches.\n\n"
-            "Q: What steps should be taken for seasonal allergy prevention?\n"
-            "A: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, and use HEPA air purifiers.\n\n"
-            "Q: What are common symptoms of influenza (flu)?\n"
-            "A: High fever, chills, persistent dry cough, sore throat, runny nose, and severe muscle fatigue.\n\n"
-            "Q: How can I treat a minor first-degree burn at home?\n"
-            "A: Cool under running tap water for 10 to 15 minutes. Never apply ice directly. Apply aloe vera gel or petroleum jelly.\n"
-        )
+# Enable CORS for cross-device support
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-loader = TextLoader(sample_faq_path, encoding="utf-8")
-raw_docs = loader.load()
-splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=80)
-doc_chunks = splitter.split_documents(raw_docs)
-vector_db = Chroma.from_documents(doc_chunks, embeddings)
-retriever = vector_db.as_retriever(search_kwargs={"k": 2})
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "").strip()
 
-# 3. Model Fallback Hierarchy
-MODELS_TO_TRY = [
-    "gemini-3.6-flash",
-    "gemini-3.7-flash",
-    "gemini-3.8-flash",
-    "gemini-3.5-flash",
-    "gemini-flash-latest",
-    "gemini-2.5-flash",
-    "gemini-2.0-flash",
-    "gemini-1.5-flash-latest",
-    "gemini-1.5-flash"
-]
-
-def extract_text_safely(res):
-    """Safely extracts text whether res is a string, dict, or AIMessage block list."""
-    if hasattr(res, "text") and res.text:
-        return res.text
-    if hasattr(res, "content"):
-        content = res.content
-        if isinstance(content, str):
-            return content
-        if isinstance(content, list):
-            parts = []
-            for item in content:
-                if isinstance(item, dict) and "text" in item:
-                    parts.append(item["text"])
-                elif hasattr(item, "text"):
-                    parts.append(item.text)
-                elif isinstance(item, str):
-                    parts.append(item)
-            return "".join(parts).strip()
-    return str(res).strip()
-
-def invoke_gemini_with_fallback(prompt_text):
-    """Tries each model in order until one succeeds."""
-    last_error = None
-    for model_name in MODELS_TO_TRY:
-        try:
-            print(f"[*] Trying model: {model_name}...")
-            llm = ChatGoogleGenerativeAI(
-                model=model_name,
-                temperature=0.2,
-                max_output_tokens=3000,
-                google_api_key=google_api_key if google_api_key else "dummy_key"
-            )
-            res = llm.invoke(prompt_text)
-            text_out = extract_text_safely(res)
-            if text_out and text_out != "[]":
-                print(f"[+] Successfully generated with {model_name}")
-                return text_out
-        except Exception as e:
-            print(f"[-] Model '{model_name}' failed: {e}")
-            last_error = e
-            continue
-    raise RuntimeError(f"All models failed. Last error: {last_error}")
-
-# 4. Red-Flag Emergency Screening with Negation Handling
+# Red flag symptoms screening
 RED_FLAGS = [
     "chest pain", "crushing chest pain", "heart attack", "can't breathe",
     "shortness of breath", "difficulty breathing", "slurred speech",
@@ -102,8 +32,8 @@ RED_FLAGS = [
     "paralysis", "anaphylaxis"
 ]
 
-def check_red_flags(query_text):
-    """Checks for red flags while ignoring negations (e.g., 'no difficulty breathing')."""
+def check_red_flags(query_text: str) -> bool:
+    """Checks for emergency red flags while respecting negation phrases."""
     text_lower = query_text.lower()
     for flag in RED_FLAGS:
         if flag in text_lower:
@@ -118,113 +48,179 @@ def check_red_flags(query_text):
 DISCLAIMER_TEXT = (
     "\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n"
     "*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. "
-    "Please consult a registered medical practitioner.*"
+    "Please consult a registered medical practitioner immediately for formal assessment.*"
 )
 
-# 5. Core Clinical Triage Generator (Uses dictionary messages format for Gradio 5/6)
-def triage_consultation(user_message, chat_history):
-    if chat_history is None:
-        chat_history = []
-    
-    if not user_message or not user_message.strip():
-        return "", chat_history
+SYSTEM_PROMPT = (
+    "You are MediAssist, an evidence-based clinical triage and healthcare AI assistant.\n"
+    "Analyze the patient symptoms and provide a comprehensive, empathetic, and clear response following this exact structure:\n\n"
+    "### 1. 🩺 Triage Assessment & Urgency Level\n"
+    "- State the triage level: Level 1 (Emergency), Level 2 (Urgent Doctor Visit), or Level 3 (Supportive Care / Non-Urgent).\n"
+    "- Acknowledge the patient's stated age or demographics.\n\n"
+    "### 2. 🌿 Home Precautions & Supportive Care\n"
+    "- Practical non-pharmacological care (e.g., hydration, gargling, rest, positioning).\n\n"
+    "### 3. 💊 Over-The-Counter (OTC) Guidance & Dosages\n"
+    "- Detail specific standard OTC medications, exact adult or pediatric dosages, dosing intervals, and maximum daily limits.\n"
+    "- Mention contraindications (e.g., avoid NSAIDs with ulcers or kidney disease; Paracetamol precautions for liver).\n\n"
+    "### 4. 🚨 Red-Flag Symptoms to Monitor\n"
+    "- Specific warning signs requiring immediate emergency or ER care.\n"
+)
 
-    # Step A: Emergency Screening
-    if check_red_flags(user_message):
-        emergency_response = (
+MODELS_TO_TRY = [
+    "gemini-3.6-flash",
+    "gemini-3.7-flash",
+    "gemini-3.8-flash",
+    "gemini-3.5-flash",
+    "gemini-flash-latest",
+]
+
+def call_gemini_api(prompt_text: str, api_key: str) -> str:
+    """Calls Google Gemini using the google.genai Client with fallback."""
+    if not api_key:
+        raise ValueError("GOOGLE_API_KEY environment variable is not configured.")
+
+    try:
+        from google import genai
+        client = genai.Client(api_key=api_key)
+        for model in MODELS_TO_TRY:
+            try:
+                res = client.models.generate_content(model=model, contents=prompt_text)
+                if res and res.text:
+                    return res.text
+            except Exception as e:
+                print(f"[-] Model '{model}' error: {e}")
+                continue
+    except Exception as e:
+        print(f"[!] SDK error: {e}")
+
+    # REST fallback
+    for model in MODELS_TO_TRY:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+            payload = json.dumps({
+                "contents": [{"parts": [{"text": prompt_text}]}],
+                "generationConfig": {
+                    "temperature": 0.2,
+                    "maxOutputTokens": 2048
+                }
+            }).encode("utf-8")
+            req = urllib.request.Request(
+                url,
+                data=payload,
+                headers={"Content-Type": "application/json"}
+            )
+            with urllib.request.urlopen(req, timeout=12) as response:
+                result = json.loads(response.read().decode("utf-8"))
+                candidates = result.get("candidates", [])
+                if candidates:
+                    parts = candidates[0].get("content", {}).get("parts", [])
+                    if parts and "text" in parts[0]:
+                        return parts[0]["text"]
+        except Exception:
+            continue
+    raise RuntimeError("All Gemini models failed.")
+
+# Local clinical FAQ fallback
+FAQ_KNOWLEDGE = [
+    {
+        "keywords": ["covid", "corona", "symptoms"],
+        "topic": "Covid-19 Symptoms",
+        "guidance": "Primary Covid-19 symptoms include fever/chills, dry cough, shortness of breath, fatigue, and body aches. Isolate and test if symptoms persist."
+    },
+    {
+        "keywords": ["flu", "influenza", "fever", "cough"],
+        "topic": "Influenza / Viral Infection",
+        "guidance": "Common flu symptoms include high fever, chills, persistent dry cough, sore throat, and severe fatigue. Prioritize hydration, bed rest, and Paracetamol (500-650mg every 4-6h for adults)."
+    },
+    {
+        "keywords": ["allergy", "pollen", "allergic"],
+        "topic": "Seasonal Allergy Care",
+        "guidance": "Minimize morning outdoor exposure during peak pollen times, keep windows closed, use saline nasal sprays, and consider non-drowsy oral antihistamines (e.g., Cetirizine 10mg)."
+    },
+    {
+        "keywords": ["burn", "scald", "heat"],
+        "topic": "Minor First-Degree Burn",
+        "guidance": "Immediately cool under cool running tap water for 10-15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly and keep clean."
+    }
+]
+
+def get_faq_fallback(query: str) -> str:
+    query_l = query.lower()
+    for item in FAQ_KNOWLEDGE:
+        if any(kw in query_l for kw in item["keywords"]):
+            return (
+                f"### 🩺 MediAssist Clinical Guidance (Knowledge Fallback)\n\n"
+                f"**Clinical Topic:** {item['topic']}\n"
+                f"- **Guidance:** {item['guidance']}\n\n"
+                f"**Standard OTC Note:** Paracetamol 500-650 mg every 4-6 hours as needed for adults (maximum 3000 mg/day). Avoid NSAIDs if history of gastritis or renal impairment."
+            )
+    return (
+        "### 🩺 MediAssist Clinical Assessment\n\n"
+        "- **Triage Urgency Level:** Level 3 (Supportive Home Care)\n"
+        "- **General Supportive Measures:** Maintain strict oral hydration (water, electrolyte solutions), monitor body temperature twice daily, and rest.\n"
+        "- **OTC Guidance:** For fever or discomfort, Paracetamol 500-650 mg every 4-6 hours for adults (max 3000 mg/day). Consult a pediatrician for weight-based child dosing."
+    )
+
+class ChatRequest(BaseModel):
+    message: str
+
+@app.get("/api/health")
+def health_check():
+    key_configured = bool(GOOGLE_API_KEY)
+    return {
+        "status": "healthy",
+        "service": "MediAssist Clinical AI",
+        "google_api_key_configured": key_configured
+    }
+
+@app.post("/api/chat")
+async def chat_endpoint(payload: ChatRequest):
+    user_query = payload.message.strip()
+    if not user_query:
+        return {"reply": "Please describe your symptoms, duration, and patient age."}
+
+    # Step 1: Emergency Red-Flag Screening
+    if check_red_flags(user_query):
+        emergency_reply = (
             "🚨 **EMERGENCY FAST-TRACK ALERT: LEVEL 1 (CRITICAL)**\n\n"
-            "Your description matches potential high-acuity red flag symptoms.\n\n"
+            "Your description matches potential high-acuity red flag medical symptoms.\n\n"
             "**ACTIONS TO TAKE IMMEDIATELY:**\n"
             "1. **CALL EMERGENCY SERVICES (112 / 108 / 911) IMMEDIATELY.**\n"
-            "2. Do not attempt self-treatment or drive yourself to the hospital.\n"
+            "2. Do not attempt to drive yourself to the hospital.\n"
             "3. Have someone stay with you while awaiting emergency personnel."
             + DISCLAIMER_TEXT
         )
-        chat_history.append({"role": "user", "content": user_message})
-        chat_history.append({"role": "assistant", "content": emergency_response})
-        return "", chat_history
+        return {
+            "reply": emergency_reply,
+            "triage_level": 1,
+            "is_emergency": True
+        }
 
-    # Step B: Clinical System Prompt
-    system_prompt = (
-        "You are MediAssist, an evidence-based clinical triage and healthcare AI assistant.\n"
-        "Provide a comprehensive, empathetic, and clear response following this exact structure:\n\n"
-        "### 1. 🩺 Triage Assessment & Urgency Level\n"
-        "- State the triage level: Level 1 (Emergency), Level 2 (Urgent Doctor Visit), or Level 3 (Supportive Care / Non-Urgent).\n"
-        "- Acknowledge the patient's stated age or demographics.\n\n"
-        "### 2. 🌿 Home Precautions & Supportive Care\n"
-        "- Practical non-pharmacological care (e.g., hydration, gargling, rest, positioning).\n\n"
-        "### 3. 💊 Over-The-Counter (OTC) Guidance & Dosages\n"
-        "- Detail specific standard OTC medications, exact adult or pediatric dosages, dosing intervals, and maximum daily limits.\n"
-        "- Mention contraindications (e.g., avoid NSAIDs with ulcers or kidney disease; Paracetamol precautions for liver).\n\n"
-        "### 4. 🚨 Red-Flag Symptoms to Monitor\n"
-        "- Specific warning signs requiring immediate emergency or ER care.\n"
-    )
-
-    full_query = f"{system_prompt}\n\nPatient Query: {user_message}"
+    # Step 2: Clinical Gemini Analysis
+    api_key = os.getenv("GOOGLE_API_KEY", GOOGLE_API_KEY).strip()
+    prompt = f"{SYSTEM_PROMPT}\n\nPatient Query: {user_query}"
 
     try:
-        response_text = invoke_gemini_with_fallback(full_query)
+        if not api_key:
+            raise ValueError("No GOOGLE_API_KEY configured in environment.")
+        reply_text = call_gemini_api(prompt, api_key)
     except Exception as err:
-        print(f"Fallback to vector DB due to: {err}")
-        docs = retriever.invoke(user_message)
-        context = "\n".join([d.page_content for d in docs])
-        response_text = (
-            f"🏥 **MediAssist Clinical Guidance (RAG Fallback)**\n\n"
-            f"**Retrieved Clinical Reference:**\n{context}\n\n"
-            f"*(Notice: Direct AI service temporary capacity notice - {err})*\n"
-            f"1. **Triage Urgency Level:** Level 3 (Supportive Care)\n"
-            f"2. **Practical Care:** Rest, hydration, and salt-water gargles for throat irritation.\n"
-            f"3. **Medication Note:** Paracetamol 500-650 mg every 4-6 hours as needed for adults (max 3000 mg/day)."
-        )
+        print(f"[!] AI API fallback triggered: {err}")
+        reply_text = get_faq_fallback(user_query) + f"\n\n*(Notice: Clinical knowledge fallback active - {err})*"
 
-    if "Standard Clinical Disclaimer" not in response_text:
-        response_text += DISCLAIMER_TEXT
+    if "Standard Clinical Disclaimer" not in reply_text:
+        reply_text += DISCLAIMER_TEXT
 
-    chat_history.append({"role": "user", "content": user_message})
-    chat_history.append({"role": "assistant", "content": response_text})
-    return "", chat_history
+    return {
+        "reply": reply_text,
+        "triage_level": 3 if "Level 3" in reply_text else (2 if "Level 2" in reply_text else 1),
+        "is_emergency": False
+    }
 
-# 6. UI Dark Styling
-custom_css = """
-body, .gradio-container {
-    background-color: #0b1120 !important;
-    color: #e2e8f0 !important;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-}
-"""
-
-# 7. Gradio Blocks Interface
-with gr.Blocks(title="MediAssist Clinical Triage") as demo:
-    gr.Markdown(
-        """
-        # 🏥 MediAssist Clinical Triage & Intelligence
-        ### Evidence-based clinical assessment, red-flag screening, and OTC guidance powered by Gemini.
-        """
-    )
-    
-    with gr.Row():
-        with gr.Column(scale=9):
-            chatbot = gr.Chatbot(
-                label="Clinical Consultation Session",
-                height=520
-            )
-        
-    with gr.Row():
-        msg_input = gr.Textbox(
-            placeholder="Describe symptoms, duration, and patient age (e.g., '21-year-old with throat pain and mild fever')...",
-            label="Patient Query",
-            scale=8,
-            lines=2
-        )
-        submit_btn = gr.Button("Consult", variant="primary", scale=2)
-
-    with gr.Row():
-        clear_btn = gr.Button("Clear Consultation", variant="secondary")
-
-    # Wire interactive actions
-    submit_btn.click(triage_consultation, inputs=[msg_input, chatbot], outputs=[msg_input, chatbot])
-    msg_input.submit(triage_consultation, inputs=[msg_input, chatbot], outputs=[msg_input, chatbot])
-    clear_btn.click(lambda: [], None, chatbot, queue=False)
-
-if __name__ == "__main__":
-    demo.launch(server_name="127.0.0.1", server_port=7860, css=custom_css)
+# Serve the static frontend on root
+@app.get("/")
+def serve_index():
+    index_path = os.path.join(os.path.dirname(__file__), "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path, media_type="text/html")
+    return HTMLResponse("<h1>MediAssist Clinical AI is running</h1>")
