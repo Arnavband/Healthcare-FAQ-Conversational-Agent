@@ -1,0 +1,8 @@
+.env
+*.env
+venv/
+env/
+__pycache__/
+*.pyc
+chroma_db/
+medical_faq.txt

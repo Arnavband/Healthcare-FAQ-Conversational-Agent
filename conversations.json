@@ -1,0 +1,298 @@
+{
+  "4d292e30": {
+    "title": "Our family has caught a viral fever...",
+    "created_at": "20 Sep 01:17",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Our family has caught a viral fever with sore throats. Need dosage for 4yo (16kg), 35yo adult, and 74yo grandfather."
+      },
+      {
+        "role": "assistant",
+        "content": "### 🏥 MediAssist Clinical Guidance (RAG Fallback)\n\n**Retrieved Context:**\nQ: What are the common symptoms of influenza (flu)?\nA: Common symptoms include high fever, chills, persistent dry cough, sore throat, runny or stuffy nose, muscle aches, severe fatigue, and headache. Staying hydrated and getting adequate rest are critical.\n\nQ: How can I treat a minor first-degree burn at home?\nA: Immediately cool the burn under running cool tap water for 10 to 15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly, and loosely cover with a clean sterile gauze bandage.\n\nQ: What are the primary symptoms of Covid-19?\nA: Primary symptoms include fever or chills, dry cough, shortness of breath, sudden loss of taste or smell, persistent fatigue, and general body aches.\n\nQ: What steps should be taken for seasonal allergy prevention?\nA: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, run HEPA air purifiers indoors, and wash your face and hands after coming inside.\n\n*(Notice: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 3.913291108s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}})*\n\n**1. Triage Urgency Level:** Level 3 (Supportive Care)\n**2. Practical Care:** Hydration and rest.\n**3. Age-Stratified Medication:** Follow standard pediatric mg/kg and avoid NSAIDs in renal impaired elderly.\n\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*"
+      }
+    ]
+  },
+  "23d70b1b": {
+    "title": "Our family has caught a viral fever...",
+    "created_at": "20 Sep 19:33",
+    "messages": [
+      {
+        "role": "user",
+        "metadata": null,
+        "content": [
+          {
+            "text": "Our family has caught a viral fever with sore throats. Need dosage for 4yo (16kg), 35yo adult, and 74yo grandfather.",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "assistant",
+        "metadata": null,
+        "content": [
+          {
+            "text": "### 🏥 MediAssist Clinical Guidance (RAG Fallback)\n\n**Retrieved Context:**\nQ: What are the common symptoms of influenza (flu)?\nA: Common symptoms include high fever, chills, persistent dry cough, sore throat, runny or stuffy nose, muscle aches, severe fatigue, and headache. Staying hydrated and getting adequate rest are critical.\n\nQ: How can I treat a minor first-degree burn at home?\nA: Immediately cool the burn under running cool tap water for 10 to 15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly, and loosely cover with a clean sterile gauze bandage.\n\nQ: What are the primary symptoms of Covid-19?\nA: Primary symptoms include fever or chills, dry cough, shortness of breath, sudden loss of taste or smell, persistent fatigue, and general body aches.\n\nQ: What steps should be taken for seasonal allergy prevention?\nA: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, run HEPA air purifiers indoors, and wash your face and hands after coming inside.\n\n*(Notice: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 3.913291108s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}})*\n\n**1. Triage Urgency Level:** Level 3 (Supportive Care)\n**2. Practical Care:** Hydration and rest.\n**3. Age-Stratified Medication:** Follow standard pediatric mg/kg and avoid NSAIDs in renal impaired elderly.\n\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "user",
+        "metadata": null,
+        "content": [
+          {
+            "text": "Our family has caught a viral fever with sore throats. Need dosage for 4yo (16kg), 35yo adult, and 74yo grandfather.",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "assistant",
+        "metadata": null,
+        "content": [
+          {
+            "text": "1. **Triage Urgency Level**: \n**Level 2 (Doctor Consultation Advised)**  \n*Rationale*: Multiple family members are affected, including high-risk age extremes (\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "user",
+        "metadata": null,
+        "content": [
+          {
+            "text": "What is the recommended medication and dosage for fever across different age groups?",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "assistant",
+        "metadata": null,
+        "content": [
+          {
+            "text": "1. **Triage Urgency Level**\n**Level 3 (Supportive Care)**: An isolated fever query represents mild-to-moderate supportive\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "user",
+        "metadata": null,
+        "content": [
+          {
+            "text": "i have throat pain. give me precautions and medication with proper dosage as i am of 21 year old.  ",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "assistant",
+        "metadata": null,
+        "content": [
+          {
+            "text": "### 🏥 MediAssist Clinical Guidance (RAG Fallback)\n\n**Retrieved Context:**\nQ: What are the primary symptoms of Covid-19?\nA: Primary symptoms include fever or chills, dry cough, shortness of breath, sudden loss of taste or smell, persistent fatigue, and general body aches.\n\nQ: What steps should be taken for seasonal allergy prevention?\nA: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, run HEPA air purifiers indoors, and wash your face and hands after coming inside.\n\nQ: What are the common symptoms of influenza (flu)?\nA: Common symptoms include high fever, chills, persistent dry cough, sore throat, runny or stuffy nose, muscle aches, severe fatigue, and headache. Staying hydrated and getting adequate rest are critical.\n\nQ: How can I treat a minor first-degree burn at home?\nA: Immediately cool the burn under running cool tap water for 10 to 15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly, and loosely cover with a clean sterile gauze bandage.\n\n*(Notice: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}})*\n\n**1. Triage Urgency Level:** Level 3 (Supportive Care)\n**2. Practical Care:** Hydration and rest.\n**3. Age-Stratified Medication:** Follow standard pediatric mg/kg and avoid NSAIDs in renal impaired elderly.\n\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "user",
+        "content": "Q: How should acute sore throat or pharyngitis be managed in adults?\nA: For acute sore throat (pharyngitis) in adults (18+ years): \n1. Supportive Care: Perform warm salt-water gargles (1/2 teaspoon salt in 1 cup warm water) 3 to 4 times daily, maintain adequate hydration with warm fluids, and use lozenges.\n2. Pharmacotherapy for Adults: Over-the-counter Paracetamol (Acetaminophen) 500 mg to 650 mg orally every 4 to 6 hours as needed (maximum 3000 mg/24 hours), or Ibuprofen 400 mg orally with food every 6 to 8 hours as needed. \n3. Red Flags: Seek urgent clinical evaluation if you develop difficulty breathing, inability to swallow liquids or saliva, inability to open the mouth fully (trismus), high fever above 102°F, or symptoms persisting past 5 days without improvement. Most sore throats are viral and do not require antibiotics unless confirmed as Group A Streptococcus by a swab test."
+      },
+      {
+        "role": "assistant",
+        "content": "🚨 **EMERGENCY FAST-TRACK ALERT: LEVEL 1 (CRITICAL)**\n\nYour description matches potential high-acuity red flag symptoms.\n\n**ACTIONS TO TAKE IMMEDIATELY:**\n- **CALL EMERGENCY SERVICES (112 / 108 / 911) IMMEDIATELY.**\n- Do not attempt self-treatment or home remedies.\n- Have someone stay with you while awaiting emergency personnel.\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*"
+      }
+    ]
+  },
+  "0e7336cb": {
+    "title": "i have throat pain. give me precaut...",
+    "created_at": "20 Sep 20:30",
+    "messages": [
+      {
+        "role": "user",
+        "metadata": null,
+        "content": [
+          {
+            "text": "Our family has caught a viral fever with sore throats. Need dosage for 4yo (16kg), 35yo adult, and 74yo grandfather.",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "assistant",
+        "metadata": null,
+        "content": [
+          {
+            "text": "### 🏥 MediAssist Clinical Guidance (RAG Fallback)\n\n**Retrieved Context:**\nQ: What are the common symptoms of influenza (flu)?\nA: Common symptoms include high fever, chills, persistent dry cough, sore throat, runny or stuffy nose, muscle aches, severe fatigue, and headache. Staying hydrated and getting adequate rest are critical.\n\nQ: How can I treat a minor first-degree burn at home?\nA: Immediately cool the burn under running cool tap water for 10 to 15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly, and loosely cover with a clean sterile gauze bandage.\n\nQ: What are the primary symptoms of Covid-19?\nA: Primary symptoms include fever or chills, dry cough, shortness of breath, sudden loss of taste or smell, persistent fatigue, and general body aches.\n\nQ: What steps should be taken for seasonal allergy prevention?\nA: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, run HEPA air purifiers indoors, and wash your face and hands after coming inside.\n\n*(Notice: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 3.913291108s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}})*\n\n**1. Triage Urgency Level:** Level 3 (Supportive Care)\n**2. Practical Care:** Hydration and rest.\n**3. Age-Stratified Medication:** Follow standard pediatric mg/kg and avoid NSAIDs in renal impaired elderly.\n\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "user",
+        "content": "i have throat pain. give me precautions and medication with proper dosage as i am of 21 year old."
+      },
+      {
+        "role": "assistant",
+        "content": "### 🏥 MediAssist Clinical Guidance (RAG Fallback)\n\n**Retrieved Context:**\nQ: What are the primary symptoms of Covid-19?\nA: Primary symptoms include fever or chills, dry cough, shortness of breath, sudden loss of taste or smell, persistent fatigue, and general body aches.\n\nQ: What steps should be taken for seasonal allergy prevention?\nA: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, run HEPA air purifiers indoors, and wash your face and hands after coming inside.\n\nQ: What are the common symptoms of influenza (flu)?\nA: Common symptoms include high fever, chills, persistent dry cough, sore throat, runny or stuffy nose, muscle aches, severe fatigue, and headache. Staying hydrated and getting adequate rest are critical.\n\nQ: How can I treat a minor first-degree burn at home?\nA: Immediately cool the burn under running cool tap water for 10 to 15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly, and loosely cover with a clean sterile gauze bandage.\n\n*(Notice: Error calling model 'gemini-1.5-flash' (NOT_FOUND): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}})*\n\n**1. Triage Urgency Level:** Level 3 (Supportive Care)\n**2. Practical Care:** Hydration and rest.\n**3. Age-Stratified Medication:** Follow standard pediatric mg/kg and avoid NSAIDs in renal impaired elderly.\n\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*"
+      }
+    ]
+  },
+  "03433fd3": {
+    "title": "i have throat pain. give me precaut...",
+    "created_at": "20 Sep 20:44",
+    "messages": [
+      {
+        "role": "user",
+        "metadata": null,
+        "content": [
+          {
+            "text": "Our family has caught a viral fever with sore throats. Need dosage for 4yo (16kg), 35yo adult, and 74yo grandfather.",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "assistant",
+        "metadata": null,
+        "content": [
+          {
+            "text": "### 🏥 MediAssist Clinical Guidance (RAG Fallback)\n\n**Retrieved Context:**\nQ: What are the common symptoms of influenza (flu)?\nA: Common symptoms include high fever, chills, persistent dry cough, sore throat, runny or stuffy nose, muscle aches, severe fatigue, and headache. Staying hydrated and getting adequate rest are critical.\n\nQ: How can I treat a minor first-degree burn at home?\nA: Immediately cool the burn under running cool tap water for 10 to 15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly, and loosely cover with a clean sterile gauze bandage.\n\nQ: What are the primary symptoms of Covid-19?\nA: Primary symptoms include fever or chills, dry cough, shortness of breath, sudden loss of taste or smell, persistent fatigue, and general body aches.\n\nQ: What steps should be taken for seasonal allergy prevention?\nA: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, run HEPA air purifiers indoors, and wash your face and hands after coming inside.\n\n*(Notice: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 3.913291108s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}})*\n\n**1. Triage Urgency Level:** Level 3 (Supportive Care)\n**2. Practical Care:** Hydration and rest.\n**3. Age-Stratified Medication:** Follow standard pediatric mg/kg and avoid NSAIDs in renal impaired elderly.\n\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "user",
+        "content": "i have throat pain. give me precautions and medication with proper dosage as i am of 21 year old."
+      },
+      {
+        "role": "assistant",
+        "content": "### 🏥 MediAssist Clinical Guidance (RAG Fallback)\n\n**Retrieved Context:**\nQ: What are the primary symptoms of Covid-19?\nA: Primary symptoms include fever or chills, dry cough, shortness of breath, sudden loss of taste or smell, persistent fatigue, and general body aches.\n\nQ: What steps should be taken for seasonal allergy prevention?\nA: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, run HEPA air purifiers indoors, and wash your face and hands after coming inside.\n\nQ: What are the common symptoms of influenza (flu)?\nA: Common symptoms include high fever, chills, persistent dry cough, sore throat, runny or stuffy nose, muscle aches, severe fatigue, and headache. Staying hydrated and getting adequate rest are critical.\n\nQ: How can I treat a minor first-degree burn at home?\nA: Immediately cool the burn under running cool tap water for 10 to 15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly, and loosely cover with a clean sterile gauze bandage.\n\n*(Notice: Error calling model 'gemini-2.5-flash' (NOT_FOUND): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.', 'status': 'NOT_FOUND'}})*\n\n**1. Triage Urgency Level:** Level 3 (Supportive Care)\n**2. Practical Care:** Hydration and rest.\n**3. Age-Stratified Medication:** Follow standard pediatric mg/kg and avoid NSAIDs in renal impaired elderly.\n\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*"
+      }
+    ]
+  },
+  "6661fcc9": {
+    "title": "i have throat pain. give me precaut...",
+    "created_at": "20 Sep 20:46",
+    "messages": [
+      {
+        "role": "user",
+        "metadata": null,
+        "content": [
+          {
+            "text": "Our family has caught a viral fever with sore throats. Need dosage for 4yo (16kg), 35yo adult, and 74yo grandfather.",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "assistant",
+        "metadata": null,
+        "content": [
+          {
+            "text": "### 🏥 MediAssist Clinical Guidance (RAG Fallback)\n\n**Retrieved Context:**\nQ: What are the common symptoms of influenza (flu)?\nA: Common symptoms include high fever, chills, persistent dry cough, sore throat, runny or stuffy nose, muscle aches, severe fatigue, and headache. Staying hydrated and getting adequate rest are critical.\n\nQ: How can I treat a minor first-degree burn at home?\nA: Immediately cool the burn under running cool tap water for 10 to 15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly, and loosely cover with a clean sterile gauze bandage.\n\nQ: What are the primary symptoms of Covid-19?\nA: Primary symptoms include fever or chills, dry cough, shortness of breath, sudden loss of taste or smell, persistent fatigue, and general body aches.\n\nQ: What steps should be taken for seasonal allergy prevention?\nA: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, run HEPA air purifiers indoors, and wash your face and hands after coming inside.\n\n*(Notice: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 3.913291108s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}})*\n\n**1. Triage Urgency Level:** Level 3 (Supportive Care)\n**2. Practical Care:** Hydration and rest.\n**3. Age-Stratified Medication:** Follow standard pediatric mg/kg and avoid NSAIDs in renal impaired elderly.\n\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "user",
+        "metadata": null,
+        "content": [
+          {
+            "text": "i have throat pain. give me precautions and medication with proper dosage as i am of 21 year old.",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "assistant",
+        "metadata": null,
+        "content": [
+          {
+            "text": "Red flags to report immediately: Difficulty breathing/swallowing, inability to open mouth (trismus), severe unilateral throat pain, or stiff neck.\n\n    *   **5. Standard\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "user",
+        "content": "i have throat pain. give me precautions"
+      },
+      {
+        "role": "assistant",
+        "content": "[]\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*"
+      }
+    ]
+  },
+  "9db842c4": {
+    "title": "Patient is 24 years old with a 2-da...",
+    "created_at": "20 Sep 21:06",
+    "messages": [
+      {
+        "role": "user",
+        "metadata": null,
+        "content": [
+          {
+            "text": "Our family has caught a viral fever with sore throats. Need dosage for 4yo (16kg), 35yo adult, and 74yo grandfather.",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "assistant",
+        "metadata": null,
+        "content": [
+          {
+            "text": "### 🏥 MediAssist Clinical Guidance (RAG Fallback)\n\n**Retrieved Context:**\nQ: What are the common symptoms of influenza (flu)?\nA: Common symptoms include high fever, chills, persistent dry cough, sore throat, runny or stuffy nose, muscle aches, severe fatigue, and headache. Staying hydrated and getting adequate rest are critical.\n\nQ: How can I treat a minor first-degree burn at home?\nA: Immediately cool the burn under running cool tap water for 10 to 15 minutes. Never apply ice directly. Apply pure aloe vera gel or petroleum jelly, and loosely cover with a clean sterile gauze bandage.\n\nQ: What are the primary symptoms of Covid-19?\nA: Primary symptoms include fever or chills, dry cough, shortness of breath, sudden loss of taste or smell, persistent fatigue, and general body aches.\n\nQ: What steps should be taken for seasonal allergy prevention?\nA: Minimize outdoor exposure during high-pollen morning hours, keep windows closed, run HEPA air purifiers indoors, and wash your face and hands after coming inside.\n\n*(Notice: Error calling model 'gemini-3.6-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 3.913291108s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}})*\n\n**1. Triage Urgency Level:** Level 3 (Supportive Care)\n**2. Practical Care:** Hydration and rest.\n**3. Age-Stratified Medication:** Follow standard pediatric mg/kg and avoid NSAIDs in renal impaired elderly.\n\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*",
+            "type": "text"
+          }
+        ],
+        "options": null
+      },
+      {
+        "role": "user",
+        "content": "Patient is 24 years old with a 2-day history of scratchy, painful throat, mild dry cough, and low-grade fever (99.8°F). No difficulty breathing or swallowing liquids. Please provide triage assessment, home precautions, and OTC medication with exact dosages."
+      },
+      {
+        "role": "assistant",
+        "content": "🚨 **EMERGENCY FAST-TRACK ALERT: LEVEL 1 (CRITICAL)**\n\nYour description matches potential high-acuity red flag symptoms.\n\n**ACTIONS TO TAKE IMMEDIATELY:**\n- **CALL EMERGENCY SERVICES (112 / 108 / 911) IMMEDIATELY.**\n- Do not attempt self-treatment or home remedies.\n- Have someone stay with you while awaiting emergency personnel.\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*"
+      }
+    ]
+  },
+  "5b12efee": {
+    "title": "Patient is 24 years old with a 2-da...",
+    "created_at": "20 Sep 21:07",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Patient is 24 years old with a 2-day history of scratchy, painful throat, mild dry cough, and low-grade fever (99.8°F). No difficulty breathing or swallowing liquids. Please provide triage assessment, home precautions, and OTC medication with exact dosages."
+      },
+      {
+        "role": "assistant",
+        "content": "🚨 **EMERGENCY FAST-TRACK ALERT: LEVEL 1 (CRITICAL)**\n\nYour description matches potential high-acuity red flag symptoms.\n\n**ACTIONS TO TAKE IMMEDIATELY:**\n- **CALL EMERGENCY SERVICES (112 / 108 / 911) IMMEDIATELY.**\n- Do not attempt self-treatment or home remedies.\n- Have someone stay with you while awaiting emergency personnel.\n\n---\n⚠️ **Standard Clinical Disclaimer:**\n*This guidance is strictly educational and does not constitute a formal diagnosis, prescription, or emergency service. Please consult a registered medical practitioner.*"
+      }
+    ]
+  }
+}
